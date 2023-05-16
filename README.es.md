@@ -17,7 +17,7 @@ Vamos a crear el Diagrama de relación de entidad para la base de datos de un bl
 
 ## 💻 Instalación
 
-1. Entra dentro del environment (ambiente) `$ pipenv shell`
+1. Entra dentro del environment (ambiente) `$ pipenv shellpipenv shell`
 
 2. Instala todas las dependencias `$ pipenv install`
 
