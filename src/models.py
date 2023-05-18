@@ -7,6 +7,26 @@ from eralchemy2 import render_er
 
 Base = declarative_base()
 
+class User(Base):
+     __tablename__ = "user"
+     id = Column(Integer, primary_key=True)
+     name = Column(String(250), nullable=False)
+     email = Column(String(250), nullable=False)
+     password = Column(String(80), nullable=False)
+     favorites = relationship ("favorites")
+
+class Favorites(Base):
+    __tablename__= "favorites"
+    id = Column(Integer, primary_key=True)
+    element_id = Column(Integer, nullable=False)
+    user_id = Column(Integer, ForeignKey('user.id'), nullable=False )
+    user= relationship("user")
+    people_id = Column(Integer, ForeignKey('people.id'), nullable=False)
+    films_id = Column(Integer, ForeignKey('films.id'), nullable=False)
+    planets_id = Column(Integer, ForeignKey('planets.id'), nullable=False)
+    Vehicles_id = Column(Integer, ForeignKey('vehicles.id'), nullable=False)
+
+
 
 class People(Base):
     __tablename__ = 'people'
@@ -23,6 +43,7 @@ class People(Base):
     homeworld_id = Column(Integer, ForeignKey('planets.id'))
     people = relationship("Films")
     vehicles = relationship ("Vehicles")
+    favorites = relationship("Favorites")
 
   
    
@@ -45,7 +66,6 @@ class Films(Base):
 class Elenco (Base):
     __tablename__ = 'Elenco'
     id = Column(Integer, primary_key=True)
-
     films_id = Column(Integer, ForeignKey('films.id'))
     planets_id = Column(Integer, ForeignKey('planets.id'))
     vehicles_id = Column(Integer, ForeignKey('vehicles.id'))
@@ -72,6 +92,10 @@ class Planets(Base):
     population = Column(String(250), nullable=False)
     people = relationship ("People")
     elenco = relationship ("Elenco")
+
+
+
+
 
 
 def to_dict(self):
